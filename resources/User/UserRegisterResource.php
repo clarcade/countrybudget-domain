@@ -21,37 +21,37 @@ class UserRegisterResource extends ResourceBase
       $response = null;
 
       try {
-         $json_post_data = $this->request->getData();
+         $json_user_data = $this->request->getData();
 
-         if (!isset($json_post_data)) {
+         if (!isset($json_user_data)) {
             throw new Exception("User data not provided");
          }
 
-         $post_data = json_decode($json_post_data);
+         $user_data = json_decode($json_user_data);
 
-         if (!isset($post_data)) {
+         if (!isset($user_data)) {
             throw new Exception("User data not provided");
          }
-         if (!isset($post_data->user_name)) {
+         if (!isset($user_data->user_name)) {
             throw new Exception("Username not provided");
          }
-         if (!isset($post_data->group_name)) {
+         if (!isset($user_data->group_name)) {
             throw new Exception("Group name not provided");
          }
-         if (!isset($post_data->email)) {
+         if (!isset($user_data->email)) {
             throw new Exception("Email not provided");
          }
-         if (!isset($post_data->password)) {
+         if (!isset($user_data->password)) {
             throw new Exception("Password not provided");
          }
 
          $valid = $this->getServiceManager()
             ->getAccountService()
             ->createAccount(
-               $post_data->user_name,
-               $post_data->group_name,
-               $post_data->email,
-               $post_data->password
+               $user_data->user_name,
+               $user_data->group_name,
+               $user_data->email,
+               $user_data->password
             );
 
          if (!isset($valid) || !$valid) {

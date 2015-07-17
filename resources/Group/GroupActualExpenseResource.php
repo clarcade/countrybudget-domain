@@ -8,9 +8,9 @@ use domain\infrastructure\bases\ResourceBase;
 
 /**
  * Class GroupIncomeResource
- * @uri /group/:group_id/income/actual
+ * @uri /group/:group_id/expense/actual
  */
-class GroupActualIncomeResource extends ResourceBase
+class GroupActualExpenseResource extends ResourceBase
 {
    /**
     * @method GET
@@ -27,12 +27,12 @@ class GroupActualIncomeResource extends ResourceBase
          }
 
          $group_income_data = $this->getServiceManager()
-            ->getGroupIncomeService()
+            ->getGroupExpenseService()
             ->getActualData($group_id);
 
          $response = new Response(
             Response::OK,
-            json_encode(array('group_actual_income_data' => $group_income_data)),
+            json_encode(array('group_actual_expense_data' => $group_income_data)),
             array('content-type' => 'application/json')
          );
       } catch (Exception $ex) {
@@ -45,8 +45,10 @@ class GroupActualIncomeResource extends ResourceBase
    /**
     * @method POST
     * @return Response
+    *
+    * Useful for now but I'll need to delete and refactor later to make better
     */
-   public function addActualGroupIncomeItem($group_id)
+   public function addActualGroupExpenseItem($group_id)
    {
       $response = null;
 
@@ -58,41 +60,41 @@ class GroupActualIncomeResource extends ResourceBase
             throw new Exception("group_id must be numeric.");
          }
 
-         $json_income_item = $this->request->getData();
+         $json_expense_item = $this->request->getData();
 
-         if (!isset($json_income_item)) {
+         if (!isset($json_expense_item)) {
             throw new Exception("Actual income item data not provided.");
          }
 
-         $income_item = json_decode($json_income_item);
+         $expense_item = json_decode($json_expense_item);
 
-         if (!isset($income_item)) {
-            throw new Exception("Income item data not provided.");
+         if (!isset($expense_item)) {
+            throw new Exception("Expense item data not provided.");
          }
-         if (!isset($income_item->type)) {
-            throw new Exception("Income item type not provided.");
+         if (!isset($expense_item->type)) {
+            throw new Exception("Expense item type not provided.");
          }
-         if (!isset($income_item->name)) {
-            throw new Exception("Income item name not provided.");
+         if (!isset($expense_item->name)) {
+            throw new Exception("Expense item name not provided.");
          }
-         if (!isset($income_item->amount)) {
-            throw new Exception("Income item amount not provided.");
+         if (!isset($expense_item->amount)) {
+            throw new Exception("Expense item amount not provided.");
          }
-         if (!is_numeric($income_item->amount)) {
-            throw new Exception("Income item amount must be numeric.");
+         if (!is_numeric($expense_item->amount)) {
+            throw new Exception("Expense item amount must be numeric.");
          }
-         if (!isset($income_item->notes)) {
-            throw new Exception("Income item notes not provided.");
+         if (!isset($expense_item->notes)) {
+            throw new Exception("Expense item notes not provided.");
          }
 
          $item = $this->getServiceManager()
-            ->getGroupIncomeService()
+            ->getGroupExpenseService()
             ->addActualItem(
                $group_id,
-               $income_item->type,
-               $income_item->name,
-               $income_item->amount,
-               $income_item->notes
+               $expense_item->type,
+               $expense_item->name,
+               $expense_item->amount,
+               $expense_item->notes
             );
 
          $response = new Response(
@@ -104,14 +106,14 @@ class GroupActualIncomeResource extends ResourceBase
          echo $ex->getMessage();
          $response = new Response(
             Response::BADREQUEST,
-            json_encode(array("error" => "Error adding new actual income item")),
+            json_encode(array("error" => "Error adding new actual expense item")),
             array('content-type' => 'application/json')
          );
       } catch (\Exception $ex) {
          echo $ex->getMessage();
          $response = new Response(
             Response::BADREQUEST,
-            json_encode(array("error" => "Error adding new actual income item")),
+            json_encode(array("error" => "Error adding new actual expense item")),
             array('content-type' => 'application/json')
          );
       }

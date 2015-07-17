@@ -37,9 +37,8 @@ EOF;
             }
          }
       } catch (\Exception $ex) {
-         throw new \Exception($ex->getMessage());
-      } finally {
-         $this->database_connect->closeConnection();
+         echo $ex->getMessage();
+         throw new \Exception("Error authenticating user.");
       }
 
       return $user;

@@ -3,7 +3,9 @@
 namespace domain\managers;
 
 use domain\services\AccountService;
+use domain\services\GroupExpenseService;
 use domain\services\GroupService;
+use domain\services\GroupIncomeService;
 use domain\services\MortgageService;
 use domain\services\UserService;
 use domain\services\AuthenticationService;
@@ -15,6 +17,8 @@ class ServiceManager
    private $authentication_service;
    private $account_service;
    private $group_service;
+   private $group_income_service;
+   private $group_expense_service;
 
    public function getMortgageService()
    {
@@ -59,5 +63,23 @@ class ServiceManager
       }
 
       return $this->group_service;
+   }
+
+   public function getGroupIncomeService()
+   {
+      if (!isset($this->group_income_service)) {
+         $this->group_income_service = new GroupIncomeService();
+      }
+
+      return $this->group_income_service;
+   }
+
+   public function getGroupExpenseService()
+   {
+      if (!isset($this->group_expense_service)) {
+         $this->group_expense_service = new GroupExpenseService();
+      }
+
+      return $this->group_expense_service;
    }
 }

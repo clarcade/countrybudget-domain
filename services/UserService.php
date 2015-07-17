@@ -11,12 +11,17 @@ class UserService extends ServiceBase
       $user = null;
 
       try {
-         $sql =
-            "SELECT u.first_name" .
-            ",      u.last_name" .
-            ",      u.id " .
-            "FROM   `user` u " .
-            "WHERE  u.id = '" . $user_id . "';";
+         if (!isset($user_id)) {
+            throw new \Exception("user_id not provided.");
+         }
+
+         $sql = <<<EOF
+SELECT u.first_name
+,      u.last_name
+,      u.id
+FROM   `user` u
+WHERE  u.id = $user_id;
+EOF;
 
          if ($result = $this->database_connect->getMysqli()->query($sql)) {
             $row = mysqli_fetch_row($result);
@@ -27,8 +32,7 @@ class UserService extends ServiceBase
          }
       } catch (\Exception $ex) {
          echo $ex->getMessage();
-      } finally {
-         $this->database_connect->closeConnection();
+         throw new \Exception("Error getting user");
       }
 
       return $user;
@@ -41,6 +45,9 @@ class UserService extends ServiceBase
       try {
          if (!isset($group_id)) {
             throw new \Exception("group_id not provided");
+         }
+         if (!is_numeric($group_id)) {
+            throw new \Exception("group_id must be numeric");
          }
          if (!isset($user_name)) {
             throw new \Exception("user_name not provided");
@@ -78,7 +85,7 @@ VALUES
     WHERE  `name` = 'GROUP ADMIN' )
 , 1
 , $group_id
-, 1, UTC_DATE(), 1, UTC_DATE());
+, 1, UTC_TIMESTAMP(), 1, UTC_TIMESTAMP());
 EOF;
 
          $mysql_connection = $this->database_connect->getMysqli();
@@ -91,8 +98,6 @@ EOF;
       } catch (\Exception $ex) {
          echo $ex->getMessage();
          throw new \Exception("Error creating new user");
-      } finally {
-         $this->database_connect->closeConnection();
       }
 
       return $user_id;
@@ -126,8 +131,6 @@ EOF;
       } catch (\Exception $ex) {
          echo $ex->getMessage();
          throw new \Exception("Error checking if user exists");
-      } finally {
-         $this->database_connect->closeConnection();
       }
 
       return $valid;
