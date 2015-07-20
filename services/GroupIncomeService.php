@@ -25,7 +25,7 @@ SELECT gi.name AS name
 ,      gi.type AS type
 ,      gi.amount AS amount
 ,      gi.notes AS notes
-,      DATE_FORMAT(gi.last_update_date, '%d-%b-%Y') AS date
+,      gi.last_update_date AS date
 FROM   `group_basic_income` gi
 WHERE  gi.group_id = $group_id
 AND    gi.what_if = 0;

@@ -866,26 +866,26 @@ CREATE TABLE `asset`
 -- ------------------------------------------------------------------
 -- Conditionally DROP and CREATE user_asset table.
 -- ------------------------------------------------------------------
-SELECT 'user_asset' AS "DROP TABLE";
-DROP TABLE IF EXISTS `user_asset`;
-
-SELECT 'user_asset' AS "CREATE TABLE";
-CREATE TABLE `user_asset`
-( `user_id`          INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
-, `asset_id`         INT UNSIGNED NOT NULL
-, `created_by`       INT UNSIGNED NOT NULL
-, `creation_date`    TIMESTAMP    NOT NULL
-, `last_updated_by`  INT UNSIGNED NOT NULL
-, `last_update_date` TIMESTAMP    NOT NULL
-, KEY user_asset_fk1 (`user_id`)
-, CONSTRAINT user_asset_fk1 FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-, KEY user_asset_fk2 (`asset_id`)
-, CONSTRAINT user_asset_fk2 FOREIGN KEY (`asset_id`) REFERENCES `asset` (`id`)
-, KEY user_asset_fk3 (`created_by`)
-, CONSTRAINT user_asset_fk3 FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
-, KEY user_asset_fk4 (`last_updated_by`)
-, CONSTRAINT user_asset_fk4 FOREIGN KEY (`last_updated_by`) REFERENCES `user` (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+-- SELECT 'user_asset' AS "DROP TABLE";
+-- DROP TABLE IF EXISTS `user_asset`;
+--
+-- SELECT 'user_asset' AS "CREATE TABLE";
+-- CREATE TABLE `user_asset`
+-- ( `user_id`          INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+-- , `asset_id`         INT UNSIGNED NOT NULL
+-- , `created_by`       INT UNSIGNED NOT NULL
+-- , `creation_date`    TIMESTAMP    NOT NULL
+-- , `last_updated_by`  INT UNSIGNED NOT NULL
+-- , `last_update_date` TIMESTAMP    NOT NULL
+-- , KEY user_asset_fk1 (`user_id`)
+-- , CONSTRAINT user_asset_fk1 FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+-- , KEY user_asset_fk2 (`asset_id`)
+-- , CONSTRAINT user_asset_fk2 FOREIGN KEY (`asset_id`) REFERENCES `asset` (`id`)
+-- , KEY user_asset_fk3 (`created_by`)
+-- , CONSTRAINT user_asset_fk3 FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
+-- , KEY user_asset_fk4 (`last_updated_by`)
+-- , CONSTRAINT user_asset_fk4 FOREIGN KEY (`last_updated_by`) REFERENCES `user` (`id`)
+-- ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 -- ------------------------------------------------------------------
 -- Conditionally DROP and CREATE group_asset table.
@@ -914,29 +914,29 @@ CREATE TABLE `group_asset`
 -- ------------------------------------------------------------------
 -- Conditionally DROP and CREATE user_basic_expense table.
 -- ------------------------------------------------------------------
-SELECT 'user_basic_expense' AS "DROP TABLE";
-DROP TABLE IF EXISTS `user_basic_expense`;
-
-SELECT 'user_basic_expense' AS "CREATE TABLE";
-CREATE TABLE `user_basic_expense`
-( `id`               INT UNSIGNED   PRIMARY KEY AUTO_INCREMENT
-, `name`             VARCHAR(200)   NOT NULL
-, `type`             VARCHAR(200)   NOT NULL
-, `amount`           DECIMAL(17, 2) NOT NULL
-, `user_id`          INT UNSIGNED   NOT NULL
-, `notes`            VARCHAR(200)
-, `what_if`          TINYINT(1)     NOT NULL    COMMENT '0=Actual, 1=What-If'
-, `created_by`       INT UNSIGNED   NOT NULL
-, `creation_date`    TIMESTAMP      NOT NULL
-, `last_updated_by`  INT UNSIGNED   NOT NULL
-, `last_update_date` TIMESTAMP      NOT NULL
-, KEY user_basic_expense_fk1 (`user_id`)
-, CONSTRAINT user_basic_expense_fk1 FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-, KEY user_basic_expense_fk2 (`created_by`)
-, CONSTRAINT user_basic_expense_fk2 FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
-, KEY user_basic_expense_fk3 (`last_updated_by`)
-, CONSTRAINT user_basic_expense_fk3 FOREIGN KEY (`last_updated_by`) REFERENCES `user` (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+-- SELECT 'user_basic_expense' AS "DROP TABLE";
+-- DROP TABLE IF EXISTS `user_basic_expense`;
+--
+-- SELECT 'user_basic_expense' AS "CREATE TABLE";
+-- CREATE TABLE `user_basic_expense`
+-- ( `id`               INT UNSIGNED   PRIMARY KEY AUTO_INCREMENT
+-- , `name`             VARCHAR(200)   NOT NULL
+-- , `type`             VARCHAR(200)   NOT NULL
+-- , `amount`           DECIMAL(17, 2) NOT NULL
+-- , `user_id`          INT UNSIGNED   NOT NULL
+-- , `notes`            VARCHAR(200)
+-- , `what_if`          TINYINT(1)     NOT NULL    COMMENT '0=Actual, 1=What-If'
+-- , `created_by`       INT UNSIGNED   NOT NULL
+-- , `creation_date`    TIMESTAMP      NOT NULL
+-- , `last_updated_by`  INT UNSIGNED   NOT NULL
+-- , `last_update_date` TIMESTAMP      NOT NULL
+-- , KEY user_basic_expense_fk1 (`user_id`)
+-- , CONSTRAINT user_basic_expense_fk1 FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+-- , KEY user_basic_expense_fk2 (`created_by`)
+-- , CONSTRAINT user_basic_expense_fk2 FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
+-- , KEY user_basic_expense_fk3 (`last_updated_by`)
+-- , CONSTRAINT user_basic_expense_fk3 FOREIGN KEY (`last_updated_by`) REFERENCES `user` (`id`)
+-- ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 -- ------------------------------------------------------------------
 -- Conditionally DROP and CREATE group_basic_expense table.
@@ -968,29 +968,29 @@ CREATE TABLE `group_basic_expense`
 -- ------------------------------------------------------------------
 -- Conditionally DROP and CREATE user_basic_income table.
 -- ------------------------------------------------------------------
-SELECT 'user_basic_income' AS "DROP TABLE";
-DROP TABLE IF EXISTS `user_basic_income`;
-
-SELECT 'user_basic_income' AS "CREATE TABLE";
-CREATE TABLE `user_basic_income`
-( `id`               INT UNSIGNED   PRIMARY KEY AUTO_INCREMENT
-, `name`             VARCHAR(200)   NOT NULL
-, `type`             VARCHAR(200)   NOT NULL
-, `amount`           DECIMAL(17, 2) NOT NULL
-, `user_id`          INT UNSIGNED   NOT NULL
-, `notes`            VARCHAR(200)
-, `what_if`          TINYINT(1)     NOT NULL    COMMENT '0=Actual, 1=What-If'
-, `created_by`       INT UNSIGNED   NOT NULL
-, `creation_date`    TIMESTAMP      NOT NULL
-, `last_updated_by`  INT UNSIGNED   NOT NULL
-, `last_update_date` TIMESTAMP      NOT NULL
-, KEY user_basic_income_fk1 (`user_id`)
-, CONSTRAINT user_basic_income_fk1 FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-, KEY user_basic_income_fk2 (`created_by`)
-, CONSTRAINT user_basic_income_fk2 FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
-, KEY user_basic_income_fk3 (`last_updated_by`)
-, CONSTRAINT user_basic_income_fk3 FOREIGN KEY (`last_updated_by`) REFERENCES `user` (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+-- SELECT 'user_basic_income' AS "DROP TABLE";
+-- DROP TABLE IF EXISTS `user_basic_income`;
+--
+-- SELECT 'user_basic_income' AS "CREATE TABLE";
+-- CREATE TABLE `user_basic_income`
+-- ( `id`               INT UNSIGNED   PRIMARY KEY AUTO_INCREMENT
+-- , `name`             VARCHAR(200)   NOT NULL
+-- , `type`             VARCHAR(200)   NOT NULL
+-- , `amount`           DECIMAL(17, 2) NOT NULL
+-- , `user_id`          INT UNSIGNED   NOT NULL
+-- , `notes`            VARCHAR(200)
+-- , `what_if`          TINYINT(1)     NOT NULL    COMMENT '0=Actual, 1=What-If'
+-- , `created_by`       INT UNSIGNED   NOT NULL
+-- , `creation_date`    TIMESTAMP      NOT NULL
+-- , `last_updated_by`  INT UNSIGNED   NOT NULL
+-- , `last_update_date` TIMESTAMP      NOT NULL
+-- , KEY user_basic_income_fk1 (`user_id`)
+-- , CONSTRAINT user_basic_income_fk1 FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+-- , KEY user_basic_income_fk2 (`created_by`)
+-- , CONSTRAINT user_basic_income_fk2 FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
+-- , KEY user_basic_income_fk3 (`last_updated_by`)
+-- , CONSTRAINT user_basic_income_fk3 FOREIGN KEY (`last_updated_by`) REFERENCES `user` (`id`)
+-- ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 -- ------------------------------------------------------------------
 -- Conditionally DROP and CREATE group_basic_income table.
