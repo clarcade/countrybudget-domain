@@ -9,5 +9,9 @@ $app->get('/hello/{name}', function ($request, $response, $args) {
     return $response->write("Hello " . $args['name']);
 });
 
+$app->post('/register', function ($request, $response, $args) {
+   return $response->write("Whoohoo"); 
+});
+
 // Run app
 $app->run();
